@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>OS Practical 2</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Patrick Hand', cursive;
+    }
+
+    body{
+      background:#f6efdf;
+      min-height:100vh;
+      padding:20px;
+      color:#4a3427;
+    }
+
+    .container{
+      max-width:1300px;
+      margin:auto;
+      background:#fbf6ea;
+      border-radius:25px;
+      padding:30px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:20px;
+    }
+
+    .back-btn{
+      text-decoration:none;
+      color:#5d4a3b;
+      font-size:22px;
+    }
+
+    .share{
+      width:48px;
+      height:48px;
+      border-radius:12px;
+      background:white;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:24px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .line{
+      width:100%;
+      height:2px;
+      background:#e6d7be;
+      margin-bottom:25px;
+    }
+
+    .content{
+      display:flex;
+      gap:50px;
+      flex-wrap:wrap;
+    }
+
+    .left{
+      flex:1;
+      min-width:320px;
+    }
+
+    .right{
+      flex:1;
+      min-width:320px;
+      display:flex;
+      flex-direction:column;
+      gap:25px;
+      align-items:center;
+    }
+
+    .badge{
+      display:inline-block;
+      background:#4d8fe3;
+      color:white;
+      padding:8px 18px;
+      border-radius:30px;
+      font-size:18px;
+      margin-bottom:20px;
+    }
+
+    h1{
+      font-size:58px;
+      line-height:1.1;
+      margin-bottom:25px;
+    }
+
+    .divider{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:30px;
+    }
+
+    .divider .line1{
+      height:2px;
+      width:90px;
+      background:#c89b5e;
+    }
+
+    .divider .circle{
+      width:15px;
+      height:15px;
+      background:#c89b5e;
+      border-radius:50%;
+    }
+
+    .section{
+      margin-bottom:35px;
+    }
+
+    .section h2{
+      color:#3567b7;
+      font-size:35px;
+      margin-bottom:15px;
+    }
+
+    .section p{
+      font-size:23px;
+      line-height:1.7;
+      margin-bottom:15px;
+      color:#5f5146;
+    }
+
+    ul{
+      padding-left:30px;
+    }
+
+    li{
+      font-size:22px;
+      line-height:1.6;
+      margin-bottom:10px;
+      color:#5f5146;
+    }
+
+    .cmd-box{
+      background:#2d2d2d;
+      color:#f1f1f1;
+      padding:18px;
+      border-radius:15px;
+      margin-top:15px;
+      overflow:auto;
+      font-size:18px;
+      line-height:1.6;
+    }
+
+    .image-box{
+      width:100%;
+      max-width:430px;
+      background:#e8d5b9;
+      padding:14px;
+      border-radius:10px;
+      transform:rotate(-3deg);
+      box-shadow:0 8px 18px rgba(0,0,0,0.18);
+      position:relative;
+    }
+
+    .image-box img{
+      width:100%;
+      border-radius:8px;
+      display:block;
+    }
+
+    .tape{
+      position:absolute;
+      width:90px;
+      top:-15px;
+      left:35%;
+      opacity:0.9;
+      transform:rotate(-8deg);
+    }
+
+    .screenshot{
+      width:100%;
+      border-radius:20px;
+      border:3px solid #e4d3bb;
+      box-shadow:0 6px 15px rgba(0,0,0,0.1);
+    }
+
+    .note{
+      background:#fff5df;
+      border-left:6px solid #4d8fe3;
+      padding:18px;
+      border-radius:12px;
+      font-size:21px;
+      line-height:1.6;
+    }
+
+    @media(max-width:900px){
+
+      .content{
+        flex-direction:column;
+      }
+
+      h1{
+        font-size:42px;
+      }
+
+      .section p,
+      li{
+        font-size:20px;
+      }
+
+    }
+
+  </style>
+
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- TOP -->
+    <div class="top">
+
+      <a href="os.html" class="back-btn">
+        ← Back to OS List
+      </a>
+
+      <div class="share">
+        ⤴
+      </div>
+
+    </div>
+
+    <div class="line"></div>
+
+    <div class="content">
+
+      <!-- LEFT -->
+      <div class="left">
+
+        <div class="badge">
+          Practical 02
+        </div>
+
+        <h1>
+          Advanced Linux <br>
+          Shell Commands
+        </h1>
+
+        <div class="divider">
+
+          <div class="line1"></div>
+          <div class="circle"></div>
+          <div class="line1"></div>
+
+        </div>
+
+        <!-- AIM -->
+        <div class="section">
+
+          <h2>Aim</h2>
+
+          <p>
+            Study of Advanced Linux shell commands
+            related to process management,
+            memory management, networking etc.
+          </p>
+
+        </div>
+
+        <!-- THEORY -->
+        <div class="section">
+
+          <h2>Theory</h2>
+
+          <p>
+            Linux shell commands are used to interact
+            with the operating system through the terminal.
+            These commands help users manage files,
+            processes, memory, networking,
+            permissions and system resources efficiently.
+          </p>
+
+          <p>
+            Advanced Linux commands are useful for
+            system administration, troubleshooting,
+            performance monitoring and network analysis.
+          </p>
+
+        </div>
+
+        <!-- FILE COMMANDS -->
+        <div class="section">
+
+          <h2>File and Directory Commands</h2>
+
+          <ul>
+
+            <li><b>ls</b> → List files and directories</li>
+
+            <li><b>pwd</b> → Display current working directory</li>
+
+            <li><b>cd</b> → Change directory</li>
+
+            <li><b>rm</b> → Remove file or directory</li>
+
+            <li><b>mkdir</b> → Create new directory</li>
+
+            <li><b>cp</b> → Copy files</li>
+
+            <li><b>mv</b> → Move files</li>
+
+            <li><b>find</b> → Search files by name</li>
+
+            <li><b>touch</b> → Create empty file</li>
+
+          </ul>
+
+        </div>
+
+        <!-- PROCESS -->
+        <div class="section">
+
+          <h2>Process Management Commands</h2>
+
+          <ul>
+
+            <li><b>ps aux</b> → Display active processes</li>
+
+            <li><b>top / htop</b> → Real time process monitoring</li>
+
+            <li><b>kill &lt;PID&gt;</b> → Terminate process using PID</li>
+
+            <li><b>killall</b> → Kill all instances of a process</li>
+
+            <li><b>pkill</b> → Terminate process by pattern</li>
+
+            <li><b>nice</b> → Run command with priority</li>
+
+            <li><b>renice</b> → Change process priority</li>
+
+            <li><b>bg / fg</b> → Background and foreground process control</li>
+
+            <li><b>nohup</b> → Run command immune to hangup</li>
+
+          </ul>
+
+          <div class="cmd-box">
+
+localhost:~/practical2# ps
+
+PID USER TIME COMMAND
+
+1 root 0:01 {init} /bin/sh /sbin/init
+
+2 root 0:00 [kthreadd]
+
+3 root 0:00 [kworker/0:0]
+
+localhost:~/practical2# renice 5 -p 1
+
+1 (process ID) old priority 5, new priority 5
+
+          </div>
+
+        </div>
+
+        <!-- MEMORY -->
+        <div class="section">
+
+          <h2>Memory Management Commands</h2>
+
+          <ul>
+
+            <li><b>free -M</b> → Display memory usage in MB</li>
+
+            <li><b>vmstat</b> → Report memory and CPU statistics</li>
+
+            <li><b>top / htop</b> → Monitor memory usage in real time</li>
+
+            <li><b>sync</b> → Write cached data to disk</li>
+
+            <li><b>echo 3</b> → Clear cache memory</li>
+
+            <li><b>ulimit -a</b> → Display user resource limits</li>
+
+          </ul>
+
+        </div>
+
+        <!-- NETWORK -->
+        <div class="section">
+
+          <h2>Networking Commands</h2>
+
+          <ul>
+
+            <li><b>ifconfig / ip a</b> → Display network interface details</li>
+
+            <li><b>ping</b> → Check network connectivity</li>
+
+            <li><b>netstat -tulnp</b> → List active connections</li>
+
+            <li><b>ss -tulnp</b> → Display socket statistics</li>
+
+            <li><b>traceroute</b> → Trace route packets</li>
+
+            <li><b>nslookup / dig</b> → DNS query commands</li>
+
+            <li><b>curl</b> → Fetch HTTP data</li>
+
+            <li><b>wget</b> → Download files from internet</li>
+
+            <li><b>iptables -L</b> → Display firewall rules</li>
+
+          </ul>
+
+          <div class="cmd-box">
+
+localhost:~# ping 127.0.0.1
+
+64 bytes from 127.0.0.1: seq=0 ttl=64 time=0.800 ms
+
+64 bytes from 127.0.0.1: seq=1 ttl=64 time=1.400 ms
+
+localhost:~# traceroute 127.0.0.1
+
+1 localhost (127.0.0.1)
+
+          </div>
+
+        </div>
+
+        <!-- PERMISSION -->
+        <div class="section">
+
+          <h2>File Permission and Ownership</h2>
+
+          <ul>
+
+            <li><b>chmod</b> → Change file permissions</li>
+
+            <li><b>chown</b> → Change file owner and group</li>
+
+            <li><b>ls -l</b> → Display file permissions</li>
+
+            <li><b>umask</b> → Set default permissions</li>
+
+          </ul>
+
+        </div>
+
+        <!-- USER -->
+        <div class="section">
+
+          <h2>User Management Commands</h2>
+
+          <ul>
+
+            <li><b>who</b> → Show logged in users</li>
+
+            <li><b>whoami</b> → Display current user</li>
+
+            <li><b>adduser</b> → Add new user</li>
+
+            <li><b>passwd</b> → Change user password</li>
+
+            <li><b>deluser</b> → Delete user</li>
+
+            <li><b>groups</b> → Show user groups</li>
+
+          </ul>
+
+        </div>
+
+        <!-- DISK -->
+        <div class="section">
+
+          <h2>Disk Management Commands</h2>
+
+          <ul>
+
+            <li><b>df -h</b> → Show disk space usage</li>
+
+            <li><b>du -sh</b> → Display directory size</li>
+
+            <li><b>mount</b> → Mount file system</li>
+
+            <li><b>umount</b> → Unmount file system</li>
+
+            <li><b>fdisk -l</b> → List partition tables</li>
+
+          </ul>
+
+        </div>
+
+        <!-- CONCLUSION -->
+        <div class="section">
+
+          <h2>Conclusion</h2>
+
+          <p>
+            Hence successfully studied advanced Linux shell commands
+            related to process management,
+            memory management, networking,
+            file permissions, user management
+            and disk management.
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right">
+
+        <div class="image-box">
+
+          <img
+            class="tape"
+            src="https://pngimg.com/d/sticky_tape_PNG25.png"
+          >
+
+          <img
+            src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop"
+            alt=""
+          >
+
+        </div>
+
+        <img
+          class="screenshot"
+          src="linux-output.png"
+          alt=""
+        >
+
+        <div class="note">
+
+          🐧 Observation: Linux shell commands help users
+          efficiently manage processes, monitor memory,
+          configure networking and control system resources
+          directly from the terminal.
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

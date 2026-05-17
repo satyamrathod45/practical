@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OS Practicals</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: 'Patrick Hand', cursive;
+    }
+
+    body{
+      min-height:100vh;
+      background:#f7efdf;
+      overflow-x:hidden;
+      position:relative;
+      color:#4b3427;
+    }
+
+    /* Paper texture */
+    body::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+      background-size:18px 18px;
+      opacity:0.5;
+      z-index:-2;
+    }
+
+    .container{
+      width:95%;
+      max-width:1100px;
+      margin:auto;
+      padding:30px 20px 60px;
+    }
+
+    /* Top */
+    .top{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-bottom:35px;
+    }
+
+    .back-btn{
+      text-decoration:none;
+      color:#5a4636;
+      font-size:22px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .header{
+      display:flex;
+      align-items:center;
+      gap:20px;
+      margin-bottom:25px;
+    }
+
+    .icon-circle{
+      width:110px;
+      height:110px;
+      border-radius:50%;
+      background:#4b93df;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-size:50px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    .title h1{
+      font-size:60px;
+      line-height:1;
+    }
+
+    .title p{
+      font-size:24px;
+      color:#7b6b5c;
+      margin-top:8px;
+    }
+
+    /* Practical List */
+    .list{
+      background:#fff9ef;
+      border:2px solid #e5d4bc;
+      border-radius:25px;
+      overflow:hidden;
+      box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    .practical{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:22px 28px;
+      border-bottom:1px solid #eadbc5;
+      cursor:pointer;
+      transition:0.3s;
+      text-decoration:none;
+      color:#4b3427;
+    }
+
+    .practical:last-child{
+      border-bottom:none;
+    }
+
+    .practical:hover{
+      background:#fdf3df;
+      transform:scale(1.01);
+    }
+
+    .left{
+      display:flex;
+      align-items:flex-start;
+      gap:20px;
+    }
+
+    .number{
+      min-width:48px;
+      height:48px;
+      border-radius:50%;
+      background:#4b93df;
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:22px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .content h3{
+      font-size:28px;
+      margin-bottom:6px;
+    }
+
+    .content p{
+      font-size:20px;
+      color:#78685c;
+      max-width:780px;
+      line-height:1.3;
+    }
+
+    .arrow{
+      font-size:34px;
+      color:#8f7d6b;
+    }
+
+    /* Decorations */
+    .corner1{
+      position:absolute;
+      top:30px;
+      right:40px;
+      width:160px;
+      opacity:0.12;
+    }
+
+    .corner2{
+      position:absolute;
+      bottom:0;
+      left:0;
+      width:100%;
+      opacity:0.18;
+    }
+
+    @media(max-width:768px){
+
+      .header{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .title h1{
+        font-size:45px;
+      }
+
+      .content h3{
+        font-size:22px;
+      }
+
+      .content p{
+        font-size:17px;
+      }
+
+      .practical{
+        padding:18px;
+      }
+
+      .arrow{
+        display:none;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Decorations -->
+  <img class="corner1" src="https://cdn-icons-png.flaticon.com/512/201/201623.png">
+
+  <svg class="corner2" viewBox="0 0 1440 160" preserveAspectRatio="none">
+    <path fill="#7eb6f5"
+      d="M0,96L24,90.7C48,85,96,75,144,74.7C192,75,240,85,288,90.7C336,96,384,96,432,85.3C480,75,528,53,576,58.7C624,64,672,96,720,106.7C768,117,816,107,864,90.7C912,75,960,53,1008,48C1056,43,1104,53,1152,74.7C1200,96,1248,128,1296,133.3C1344,139,1392,117,1416,106.7L1440,96L1440,160L1416,160C1392,160,1344,160,1296,160C1248,160,1200,160,1152,160C1104,160,1056,160,1008,160C960,160,912,160,864,160C816,160,768,160,720,160C672,160,624,160,576,160C528,160,480,160,432,160C384,160,336,160,288,160C240,160,192,160,144,160C96,160,48,160,24,160L0,160Z">
+    </path>
+  </svg>
+
+  <div class="container">
+
+    <!-- Back -->
+    <div class="top">
+      <a href="subjects.html" class="back-btn">
+        ← Back to Subjects
+      </a>
+    </div>
+
+    <!-- Heading -->
+    <div class="header">
+
+      <div class="icon-circle">
+        💻
+      </div>
+
+      <div class="title">
+        <h1>Operating System</h1>
+        <p>List of all OS Practicals</p>
+      </div>
+
+    </div>
+
+    <!-- Practical List -->
+    <div class="list">
+
+      <!-- Practical 1 -->
+      <a href="practical1.html" target="_blank" class="practical">
+
+        <div class="left">
+
+          <div class="number">01</div>
+
+          <div class="content">
+            <h3>Study of Window Task Manager</h3>
+            <p>
+              Exploring various tabs: application, processes, services,
+              networking and performance.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="arrow">›</div>
+
+      </a>
+
+      <!-- Practical 2 -->
+      <a href="practical2.html" target="_blank" class="practical">
+
+        <div class="left">
+
+          <div class="number">02</div>
+
+          <div class="content">
+            <h3>Advanced Linux Shell Commands</h3>
+            <p>
+              Process management, memory management, networking and advanced Linux commands.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="arrow">›</div>
+
+      </a>
+
+      <!-- Practical 3 -->
+      <a href="practical3.html" target="_blank" class="practical">
+
+        <div class="left">
+
+          <div class="number">03</div>
+
+          <div class="content">
+            <h3>Process creation using fork()</h3>
+            <p>
+              Write a program that illustrates the creation of child process using fork() system call. Parent and child processes perform different tasks
+            </p>
+          </div>
+
+        </div>
+
+        <div class="arrow">›</div>
+
+      </a>
+
+      <!-- Practical 4 -->
+      <a href="practical4.html" target="_blank" class="practical">
+
+        <div class="left">
+
+          <div class="number">04</div>
+
+          <div class="content">
+            <h3>CPU Scheduling Algorithms</h3>
+            <p>
+              Simulate preemptive and non-preemptive CPU scheduling algorithms.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="arrow">›</div>
+
+      </a>
+
+      <!-- Practical 5 -->
+      <a href="practical5.html" target="_blank" class="practical">
+
+        <div class="left">
+
+          <div class="number">05</div>
+
+          <div class="content">
+            <h3>Inter Process Communication</h3>
+            <p>
+              Perform IPC using shared memory, pipes or message queues.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="arrow">›</div>
+
+      </a>
+
+      <!-- Practical 6 -->
+      <a href="practical6.html" target="_blank" class="practical">
+
+        <div class="left">
+
+          <div class="number">06</div>
+
+          <div class="content">
+            <h3>Producer Consumer Problem</h3>
+            <p>
+              Solve producer-consumer problem using bounded buffer and semaphores.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="arrow">›</div>
+
+      </a>
+
+      <!-- Practical 7 -->
+      <a href="practical7.html" target="_blank" class="practical">
+
+        <div class="left">
+
+          <div class="number">07</div>
+
+          <div class="content">
+            <h3>Memory Allocation Algorithms</h3>
+            <p>
+              Simulate First Fit and Worst Fit memory allocation algorithms.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="arrow">›</div>
+
+      </a>
+
+      <!-- Practical 8 -->
+      <a href="practical8.html" target="_blank" class="practical">
+
+        <div class="left">
+
+          <div class="number">08</div>
+
+          <div class="content">
+            <h3>Page Replacement Algorithms</h3>
+            <p>
+              Simulate FIFO, LRU and Optimal page replacement algorithms.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="arrow">›</div>
+
+      </a>
+
+      <!-- Practical 9 -->
+      <a href="practical9.html" target="_blank" class="practical">
+
+        <div class="left">
+
+          <div class="number">09</div>
+
+          <div class="content">
+            <h3>Banker's Deadlock Avoidance Algorithm</h3>
+            <p>
+              Write a program to simulate Banker's deadlock avoidance algorithm.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="arrow">›</div>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

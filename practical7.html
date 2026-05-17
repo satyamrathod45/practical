@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>OS Practical 7</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- TOP -->
+
+    <div class="top">
+
+      <a href="os.html" class="back-btn">
+        ← Back to OS List
+      </a>
+
+      <div class="share">
+        ⤴
+      </div>
+
+    </div>
+
+    <div class="line"></div>
+
+    <div class="content">
+
+      <div class="left">
+
+        <div class="badge">
+          Practical 07
+        </div>
+
+        <h1>
+          Memory Allocation <br>
+          Algorithms
+        </h1>
+
+        <div class="divider">
+
+          <div class="line1"></div>
+          <div class="circle"></div>
+          <div class="line1"></div>
+
+        </div>
+
+        <!-- AIM -->
+
+        <div class="section">
+
+          <h2>Aim</h2>
+
+          <p>
+            To simulate First Fit and Worst Fit
+            Memory Allocation Algorithms in
+            Operating System using C language.
+          </p>
+
+        </div>
+
+        <!-- THEORY -->
+
+        <div class="section">
+
+          <h2>Theory</h2>
+
+          <p>
+            Memory allocation is an important
+            function of an Operating System
+            where memory blocks are assigned
+            to processes according to their
+            memory requirements.
+          </p>
+
+          <p>
+            In dynamic memory allocation,
+            memory is divided into free blocks
+            and processes request memory
+            dynamically during execution.
+          </p>
+
+          <p>
+            Different memory allocation
+            algorithms are used to decide
+            how memory blocks should be
+            allocated efficiently.
+          </p>
+
+          <p>
+            The objective of memory allocation
+            algorithms is to reduce memory
+            wastage and improve memory utilization.
+          </p>
+
+        </div>
+
+        <!-- FIRST FIT THEORY -->
+
+        <div class="section">
+
+          <h2>First Fit Algorithm</h2>
+
+          <p>
+            First Fit is one of the simplest
+            memory allocation techniques.
+          </p>
+
+          <p>
+            In this method, the Operating System
+            scans memory blocks from the beginning
+            and allocates the first block that
+            is large enough to satisfy the
+            process request.
+          </p>
+
+          <p>
+            Working of First Fit Algorithm:
+          </p>
+
+          <ul>
+
+            <li>Start checking memory blocks from the first block.</li>
+
+            <li>Find the first free block large enough for the process.</li>
+
+            <li>Allocate memory to the process.</li>
+
+            <li>Reduce the remaining free space if block size is larger.</li>
+
+          </ul>
+
+          <p>
+            First Fit is fast and easy to
+            implement but may create external
+            fragmentation after multiple allocations.
+          </p>
+
+        </div>
+
+        <!-- FIRST FIT PROGRAM -->
+
+        <div class="section">
+
+          <h2>First Fit Program</h2>
+
+          <div class="code-container">
+
+            <button class="copy-btn" onclick="copyFirstFit()">
+              Copy Code
+            </button>
+
+<pre><code id="firstFitCode">
+#include &lt;stdio.h&gt;
+
+int main()
+{
+    int blockSize[] = {100, 500, 200, 300, 600};
+
+    int processSize[] = {212, 417, 112, 426};
+
+    int m = 5;
+
+    int n = 4;
+
+    int allocation[4];
+
+    int i, j;
+
+    for(i = 0; i &lt; n; i++)
+    {
+        allocation[i] = -1;
+    }
+
+    for(i = 0; i &lt; n; i++)
+    {
+        for(j = 0; j &lt; m; j++)
+        {
+            if(blockSize[j] &gt;= processSize[i])
+            {
+                allocation[i] = j;
+
+                blockSize[j] -= processSize[i];
+
+                break;
+            }
+        }
+    }
+
+    printf("\\nFirst Fit Allocation:\\n");
+
+    printf("Process No.\\tProcess Size\\tBlock No.\\n");
+
+    for(i = 0; i &lt; n; i++)
+    {
+        printf("%d\\t\\t%d\\t\\t",
+        i + 1,
+        processSize[i]);
+
+        if(allocation[i] != -1)
+        {
+            printf("%d\\n", allocation[i] + 1);
+        }
+
+        else
+        {
+            printf("Not Allocated\\n");
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+
+          </div>
+
+        </div>
+
+        <!-- WORST FIT THEORY -->
+
+        <div class="section">
+
+          <h2>Worst Fit Algorithm</h2>
+
+          <p>
+            Worst Fit is a dynamic memory
+            allocation algorithm in which
+            the Operating System allocates
+            the largest available memory block
+            to the process.
+          </p>
+
+          <p>
+            The algorithm searches all free
+            memory blocks and selects the
+            largest block for allocation.
+          </p>
+
+          <p>
+            Working of Worst Fit Algorithm:
+          </p>
+
+          <ul>
+
+            <li>Search all available free memory blocks.</li>
+
+            <li>Select the largest free memory block.</li>
+
+            <li>Allocate required memory from that block.</li>
+
+            <li>Update the remaining free memory size.</li>
+
+          </ul>
+
+          <p>
+            Worst Fit reduces very small
+            leftover fragments but may waste
+            large memory blocks unnecessarily.
+          </p>
+
+        </div>
+
+        <!-- WORST FIT PROGRAM -->
+
+        <div class="section">
+
+          <h2>Worst Fit Program</h2>
+
+          <div class="code-container">
+
+            <button class="copy-btn" onclick="copyWorstFit()">
+              Copy Code
+            </button>
+
+<pre><code id="worstFitCode">
+#include &lt;stdio.h&gt;
+
+int main()
+{
+    int blockSize[] = {100, 500, 200, 300, 600};
+
+    int processSize[] = {212, 417, 112, 426};
+
+    int m = 5;
+
+    int n = 4;
+
+    int allocation[4];
+
+    int i, j;
+
+    for(i = 0; i &lt; n; i++)
+    {
+        allocation[i] = -1;
+    }
+
+    for(i = 0; i &lt; n; i++)
+    {
+        int worstIdx = -1;
+
+        for(j = 0; j &lt; m; j++)
+        {
+            if(blockSize[j] &gt;= processSize[i])
+            {
+                if(worstIdx == -1 ||
+                   blockSize[worstIdx] &lt; blockSize[j])
+                {
+                    worstIdx = j;
+                }
+            }
+        }
+
+        if(worstIdx != -1)
+        {
+            allocation[i] = worstIdx;
+
+            blockSize[worstIdx] -= processSize[i];
+        }
+    }
+
+    printf("\\nWorst Fit Allocation:\\n");
+
+    printf("Process No.\\tProcess Size\\tBlock No.\\n");
+
+    for(i = 0; i &lt; n; i++)
+    {
+        printf("%d\\t\\t%d\\t\\t",
+        i + 1,
+        processSize[i]);
+
+        if(allocation[i] != -1)
+        {
+            printf("%d\\n", allocation[i] + 1);
+        }
+
+        else
+        {
+            printf("Not Allocated\\n");
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+
+          </div>
+
+        </div>
+
+        <!-- OUTPUT -->
+
+        <div class="section">
+
+          <h2>Output</h2>
+
+          <div class="output-box">
+
+First Fit Allocation:
+
+Process No.    Process Size    Block No.
+
+1              212             2
+
+2              417             5
+
+3              112             2
+
+4              426             Not Allocated
+
+
+Worst Fit Allocation:
+
+Process No.    Process Size    Block No.
+
+1              212             5
+
+2              417             2
+
+3              112             5
+
+4              426             Not Allocated
+
+          </div>
+
+        </div>
+
+        <!-- CONCLUSION -->
+
+        <div class="section">
+
+          <h2>Conclusion</h2>
+
+          <p>
+            Thus the First Fit and Worst Fit
+            Memory Allocation Algorithms were
+            implemented successfully using C language.
+          </p>
+
+          <p>
+            First Fit allocates the first
+            suitable block while Worst Fit
+            allocates the largest available
+            block. Both algorithms demonstrate
+            important memory management
+            strategies used in Operating Systems.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+<script>
+
+function copyFirstFit(){
+
+const code = `#include <stdio.h>
+
+int main()
+{
+    int blockSize[] = {100, 500, 200, 300, 600};
+
+    int processSize[] = {212, 417, 112, 426};
+
+    int m = 5;
+
+    int n = 4;
+
+    int allocation[4];
+
+    int i, j;
+
+    for(i = 0; i < n; i++)
+    {
+        allocation[i] = -1;
+    }
+
+    for(i = 0; i < n; i++)
+    {
+        for(j = 0; j < m; j++)
+        {
+            if(blockSize[j] >= processSize[i])
+            {
+                allocation[i] = j;
+
+                blockSize[j] -= processSize[i];
+
+                break;
+            }
+        }
+    }
+
+    printf("\\nFirst Fit Allocation:\\n");
+
+    printf("Process No.\\tProcess Size\\tBlock No.\\n");
+
+    for(i = 0; i < n; i++)
+    {
+        printf("%d\\t\\t%d\\t\\t",
+        i + 1,
+        processSize[i]);
+
+        if(allocation[i] != -1)
+        {
+            printf("%d\\n", allocation[i] + 1);
+        }
+
+        else
+        {
+            printf("Not Allocated\\n");
+        }
+    }
+
+    return 0;
+}`;
+
+navigator.clipboard.writeText(code);
+
+const btn = event.target;
+
+btn.innerHTML = "Copied!";
+
+setTimeout(() => {
+
+btn.innerHTML = "Copy Code";
+
+}, 2000);
+
+}
+
+function copyWorstFit(){
+
+const code = `#include <stdio.h>
+
+int main()
+{
+    int blockSize[] = {100, 500, 200, 300, 600};
+
+    int processSize[] = {212, 417, 112, 426};
+
+    int m = 5;
+
+    int n = 4;
+
+    int allocation[4];
+
+    int i, j;
+
+    for(i = 0; i < n; i++)
+    {
+        allocation[i] = -1;
+    }
+
+    for(i = 0; i < n; i++)
+    {
+        int worstIdx = -1;
+
+        for(j = 0; j < m; j++)
+        {
+            if(blockSize[j] >= processSize[i])
+            {
+                if(worstIdx == -1 ||
+                   blockSize[worstIdx] < blockSize[j])
+                {
+                    worstIdx = j;
+                }
+            }
+        }
+
+        if(worstIdx != -1)
+        {
+            allocation[i] = worstIdx;
+
+            blockSize[worstIdx] -= processSize[i];
+        }
+    }
+
+    printf("\\nWorst Fit Allocation:\\n");
+
+    printf("Process No.\\tProcess Size\\tBlock No.\\n");
+
+    for(i = 0; i < n; i++)
+    {
+        printf("%d\\t\\t%d\\t\\t",
+        i + 1,
+        processSize[i]);
+
+        if(allocation[i] != -1)
+        {
+            printf("%d\\n", allocation[i] + 1);
+        }
+
+        else
+        {
+            printf("Not Allocated\\n");
+        }
+    }
+
+    return 0;
+}`;
+
+navigator.clipboard.writeText(code);
+
+const btn = event.target;
+
+btn.innerHTML = "Copied!";
+
+setTimeout(() => {
+
+btn.innerHTML = "Copy Code";
+
+}, 2000);
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>OS Practical 5</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- TOP -->
+
+    <div class="top">
+
+      <a href="os.html" class="back-btn">
+        ← Back to OS List
+      </a>
+
+      <div class="share">
+        ⤴
+      </div>
+
+    </div>
+
+    <div class="line"></div>
+
+    <div class="content">
+
+      <div class="left">
+
+        <div class="badge">
+          Practical 05
+        </div>
+
+        <h1>
+          Inter Process <br>
+          Communication
+        </h1>
+
+        <div class="divider">
+
+          <div class="line1"></div>
+          <div class="circle"></div>
+          <div class="line1"></div>
+
+        </div>
+
+        <!-- AIM -->
+
+        <div class="section">
+
+          <h2>Aim</h2>
+
+          <p>
+            To write a program for Inter Process
+            Communication using Shared Memory
+            and Pipes in Linux Operating System.
+          </p>
+
+        </div>
+
+        <!-- THEORY -->
+
+        <div class="section">
+
+          <h2>Theory</h2>
+
+          <p>
+            Inter Process Communication (IPC)
+            is a mechanism that allows two or
+            more processes to communicate and
+            exchange data with each other.
+          </p>
+
+          <p>
+            In an operating system, processes
+            normally execute independently and
+            have separate memory spaces. IPC
+            provides a way for processes to
+            share information and coordinate
+            their execution efficiently.
+          </p>
+
+          <p>
+            IPC is very important in modern
+            operating systems because multiple
+            applications and services need to
+            interact with each other while
+            running simultaneously.
+          </p>
+
+          <p>
+            Inter Process Communication helps in:
+          </p>
+
+          <ul>
+
+            <li>Data sharing between processes.</li>
+
+            <li>Synchronization between tasks.</li>
+
+            <li>Resource sharing and coordination.</li>
+
+            <li>Communication between parent and child processes.</li>
+
+          </ul>
+
+        </div>
+
+        <!-- PIPE THEORY -->
+
+        <div class="section">
+
+          <h2>Pipe Communication</h2>
+
+          <p>
+            A Pipe is one of the simplest IPC
+            mechanisms used in Unix and Linux.
+          </p>
+
+          <p>
+            It creates a unidirectional communication
+            channel between related processes such
+            as parent and child processes.
+          </p>
+
+          <p>
+            One process writes data into the pipe
+            while the other process reads the data
+            from the pipe.
+          </p>
+
+          <p>
+            Pipe uses two file descriptors:
+          </p>
+
+          <ul>
+
+            <li>fd[0] → Read End</li>
+
+            <li>fd[1] → Write End</li>
+
+          </ul>
+
+        </div>
+
+        <!-- PIPE PROGRAM -->
+
+        <div class="section">
+
+          <h2>Program using Pipe</h2>
+
+          <div class="code-container">
+
+            <button class="copy-btn" onclick="copyPipe()">
+              Copy Code
+            </button>
+
+<pre><code id="pipeCode">
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;string.h&gt;
+
+int main()
+{
+    int fd[2];
+
+    char write_msg[] = "Hello from Parent Process";
+
+    char read_msg[100];
+
+    pipe(fd);
+
+    if(fork() == 0)
+    {
+        close(fd[1]);
+
+        read(fd[0], read_msg, sizeof(read_msg));
+
+        printf("Child Process Received: %s\\n", read_msg);
+
+        close(fd[0]);
+    }
+
+    else
+    {
+        close(fd[0]);
+
+        write(fd[1], write_msg, strlen(write_msg) + 1);
+
+        printf("Parent Process Sent Message\\n");
+
+        close(fd[1]);
+    }
+
+    return 0;
+}
+</code></pre>
+
+          </div>
+
+        </div>
+
+        <!-- SHARED MEMORY THEORY -->
+
+        <div class="section">
+
+          <h2>Shared Memory</h2>
+
+          <p>
+            Shared Memory is the fastest
+            Inter Process Communication method.
+          </p>
+
+          <p>
+            In this method, multiple processes
+            access the same memory segment for
+            communication and data exchange.
+          </p>
+
+          <p>
+            A memory block is created by one
+            process and other processes attach
+            to the same block to read or write data.
+          </p>
+
+          <p>
+            Since processes directly access the
+            shared memory, communication becomes
+            very fast and efficient.
+          </p>
+
+          <p>
+            Important system calls used in
+            shared memory are:
+          </p>
+
+          <ul>
+
+            <li>shmget()</li>
+
+            <li>shmat()</li>
+
+            <li>shmdt()</li>
+
+            <li>shmctl()</li>
+
+          </ul>
+
+        </div>
+
+        <!-- SHARED MEMORY PROGRAM -->
+
+        <div class="section">
+
+          <h2>Program using Shared Memory</h2>
+
+          <div class="code-container">
+
+            <button class="copy-btn" onclick="copyShared()">
+              Copy Code
+            </button>
+
+<pre><code id="sharedCode">
+#include &lt;stdio.h&gt;
+#include &lt;sys/ipc.h&gt;
+#include &lt;sys/shm.h&gt;
+#include &lt;string.h&gt;
+
+int main()
+{
+    int shmid;
+
+    char *str;
+
+    shmid = shmget((key_t)1122, 1024, 0666 | IPC_CREAT);
+
+    str = (char*) shmat(shmid, NULL, 0);
+
+    printf("Write Data: ");
+
+    gets(str);
+
+    printf("Data Written in Memory: %s\\n", str);
+
+    shmdt(str);
+
+    return 0;
+}
+</code></pre>
+
+          </div>
+
+        </div>
+
+        <!-- OUTPUT -->
+
+        <div class="section">
+
+          <h2>Output</h2>
+
+          <div class="output-box">
+
+Parent Process Sent Message
+
+Child Process Received:
+Hello from Parent Process
+
+
+Write Data: Hello IPC
+
+Data Written in Memory:
+Hello IPC
+
+          </div>
+
+        </div>
+
+        <!-- CONCLUSION -->
+
+        <div class="section">
+
+          <h2>Conclusion</h2>
+
+          <p>
+            Thus the programs for Inter Process
+            Communication using Pipes and Shared
+            Memory were implemented successfully.
+          </p>
+
+          <p>
+            IPC mechanisms help processes
+            communicate efficiently and are
+            important concepts in Operating Systems.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+function copyPipe(){
+
+const code = `#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
+int main()
+{
+    int fd[2];
+
+    char write_msg[] = "Hello from Parent Process";
+
+    char read_msg[100];
+
+    pipe(fd);
+
+    if(fork() == 0)
+    {
+        close(fd[1]);
+
+        read(fd[0], read_msg, sizeof(read_msg));
+
+        printf("Child Process Received: %s\\n", read_msg);
+
+        close(fd[0]);
+    }
+
+    else
+    {
+        close(fd[0]);
+
+        write(fd[1], write_msg, strlen(write_msg) + 1);
+
+        printf("Parent Process Sent Message\\n");
+
+        close(fd[1]);
+    }
+
+    return 0;
+}`;
+
+navigator.clipboard.writeText(code);
+
+const btn = event.target;
+
+btn.innerHTML = "Copied!";
+
+setTimeout(() => {
+
+btn.innerHTML = "Copy Code";
+
+}, 2000);
+
+}
+
+function copyShared(){
+
+const code = `#include <stdio.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <string.h>
+
+int main()
+{
+    int shmid;
+
+    char *str;
+
+    shmid = shmget((key_t)1122, 1024, 0666 | IPC_CREAT);
+
+    if(shmid < 0)
+    {
+        printf("Shared Memory Creation Failed\\n");
+        return 1;
+    }
+
+    str = (char*) shmat(shmid, NULL, 0);
+
+    if(str == (char*) -1)
+    {
+        printf("Shared Memory Attachment Failed\\n");
+        return 1;
+    }
+
+    printf("Write Data: ");
+
+    fgets(str, 1024, stdin);
+
+    printf("Data Written in Memory: %s\\n", str);
+
+    shmdt(str);
+
+    return 0;
+}`;
+navigator.clipboard.writeText(code);
+
+const btn = event.target;
+
+btn.innerHTML = "Copied!";
+
+setTimeout(() => {
+
+btn.innerHTML = "Copy Code";
+
+}, 2000);
+
+}
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>OS Practical 1</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Patrick Hand', cursive;
+    }
+
+    body{
+      background:#f6efdf;
+      min-height:100vh;
+      padding:20px;
+      color:#4a3427;
+      overflow-x:hidden;
+    }
+
+    .container{
+      max-width:1300px;
+      margin:auto;
+      background:#fbf6ea;
+      border-radius:25px;
+      padding:30px;
+      position:relative;
+      box-shadow:0 8px 20px rgba(0,0,0,0.08);
+      overflow:hidden;
+    }
+
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:20px;
+    }
+
+    .back-btn{
+      text-decoration:none;
+      color:#5d4a3b;
+      font-size:22px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .share{
+      width:48px;
+      height:48px;
+      border-radius:12px;
+      background:white;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:24px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+      cursor:pointer;
+    }
+
+    .line{
+      width:100%;
+      height:2px;
+      background:#e6d7be;
+      margin-bottom:25px;
+    }
+
+    .content{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:50px;
+      flex-wrap:wrap;
+    }
+
+    .left{
+      flex:1;
+      min-width:320px;
+    }
+
+    .badge{
+      display:inline-block;
+      background:#4d8fe3;
+      color:white;
+      padding:8px 18px;
+      border-radius:30px;
+      font-size:18px;
+      margin-bottom:20px;
+    }
+
+    h1{
+      font-size:58px;
+      line-height:1.1;
+      margin-bottom:25px;
+    }
+
+    .divider{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:30px;
+    }
+
+    .divider .line1{
+      height:2px;
+      width:90px;
+      background:#c89b5e;
+    }
+
+    .divider .circle{
+      width:15px;
+      height:15px;
+      background:#c89b5e;
+      border-radius:50%;
+    }
+
+    .section{
+      margin-bottom:30px;
+    }
+
+    .section h2{
+      color:#3567b7;
+      font-size:35px;
+      margin-bottom:14px;
+    }
+
+    .section p{
+      font-size:23px;
+      line-height:1.7;
+      color:#5e5045;
+      margin-bottom:15px;
+    }
+
+    ul{
+      padding-left:28px;
+    }
+
+    li{
+      font-size:22px;
+      margin-bottom:10px;
+      line-height:1.5;
+      color:#5e5045;
+    }
+
+    .right{
+      flex:1;
+      min-width:320px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:30px;
+    }
+
+    .image-box{
+      background:#e8d5b9;
+      padding:14px;
+      transform:rotate(-3deg);
+      border-radius:8px;
+      box-shadow:0 8px 18px rgba(0,0,0,0.18);
+      width:100%;
+      max-width:420px;
+      position:relative;
+    }
+
+    .image-box img{
+      width:100%;
+      border-radius:6px;
+      display:block;
+    }
+
+    .tape{
+      position:absolute;
+      width:90px;
+      top:-15px;
+      left:35%;
+      transform:rotate(-8deg);
+      opacity:0.9;
+    }
+
+    .screenshot{
+      width:100%;
+      border-radius:20px;
+      border:3px solid #e2d2ba;
+      box-shadow:0 6px 15px rgba(0,0,0,0.1);
+    }
+
+    .note{
+      background:#fff5df;
+      border-left:6px solid #4d8fe3;
+      padding:18px;
+      border-radius:12px;
+      font-size:21px;
+      line-height:1.6;
+      margin-top:20px;
+    }
+
+    @media(max-width:900px){
+
+      .content{
+        flex-direction:column;
+      }
+
+      h1{
+        font-size:42px;
+      }
+
+      .section p,
+      li{
+        font-size:20px;
+      }
+
+    }
+
+  </style>
+
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- TOP -->
+    <div class="top">
+
+      <a href="os.html" class="back-btn">
+        ← Back to OS List
+      </a>
+
+      <div class="share">
+        ⤴
+      </div>
+
+    </div>
+
+    <div class="line"></div>
+
+    <div class="content">
+
+      <!-- LEFT -->
+      <div class="left">
+
+        <div class="badge">
+          Practical 01
+        </div>
+
+        <h1>
+          Study of Window <br>
+          Task Manager
+        </h1>
+
+        <div class="divider">
+
+          <div class="line1"></div>
+          <div class="circle"></div>
+          <div class="line1"></div>
+
+        </div>
+
+        <!-- AIM -->
+        <div class="section">
+
+          <h2>Aim</h2>
+
+          <p>
+            To study Window Task Manager by exploring various tools
+            such as Applications, Processes, Services,
+            Networking and Performance.
+          </p>
+
+        </div>
+
+        <!-- THEORY -->
+        <div class="section">
+
+          <h2>Theory</h2>
+
+          <p>
+            Windows Task Manager is a system monitoring and management
+            utility provided by the Microsoft Windows Operating System.
+            It allows users to view and control running applications,
+            background processes, system services and hardware resource usage.
+          </p>
+
+          <p>
+            Task Manager provides real time information about system CPU usage,
+            memory consumption, disk activity and network performance.
+            It also enables users to terminate unresponsive applications,
+            start new tasks and manage startup programs.
+          </p>
+
+          <p>
+            If any application becomes unresponsive or consumes excessive
+            system resources, Task Manager provides an option to terminate
+            the application safely. This feature is useful when a system
+            becomes slow or frozen due to malfunctioning software.
+          </p>
+
+          <p>
+            Applications consume system resources such as CPU time,
+            memory and disk access. By observing application behaviour
+            in Task Manager, users can analyse how different programs
+            impact system performance.
+          </p>
+
+        </div>
+
+        <!-- PROCESS TAB -->
+        <div class="section">
+
+          <h2>Processes Tab</h2>
+
+          <p>
+            A process is an instance of a running program.
+            Every application running on a system consists of
+            one or more processes. In addition to user initiated
+            applications, the operating system runs multiple
+            background processes to support system functionality.
+          </p>
+
+          <p>
+            The Processes section in Task Manager displays all
+            running processes along with their resource usage
+            including CPU, memory, disk and network consumption.
+          </p>
+
+          <p>
+            This information helps in identifying processes
+            that are consuming excessive resources and may
+            cause system slowdown.
+          </p>
+
+          <p>
+            Processes are categorized into application processes,
+            background processes and system processes.
+            Background processes support system operations
+            while system processes are critical for operating
+            system stability.
+          </p>
+
+        </div>
+
+        <!-- SERVICES -->
+        <div class="section">
+
+          <h2>Services Tab</h2>
+
+          <p>
+            Services are special types of programs that run
+            in the background without direct user interaction.
+            They usually start automatically when the operating
+            system boots and continue running to support
+            essential system functions such as networking,
+            security, printing and updates.
+          </p>
+
+          <p>
+            The Services tab in Task Manager displays a list
+            of all system services along with their current
+            status such as running or stopped.
+          </p>
+
+          <p>
+            Managing services is an important task because
+            Task Manager allows users to start, stop or restart
+            services whenever required.
+          </p>
+
+          <p>
+            Understanding system services helps engineers
+            diagnose system issues, optimize performance
+            and maintain system reliability.
+          </p>
+
+        </div>
+
+        <!-- PERFORMANCE -->
+        <div class="section">
+
+          <h2>Performance Tab</h2>
+
+          <p>
+            The Performance section of Windows Task Manager
+            provides a graphical representation of system
+            resource usage in real time.
+          </p>
+
+          <p>
+            This section displays performance metrics for
+            CPU, memory, disk and network.
+            CPU performance shows processor usage,
+            number of cores and processing speed.
+          </p>
+
+          <p>
+            Memory performance indicates total installed RAM,
+            used memory and available memory.
+            Disk performance provides information about
+            read and write speeds while network performance
+            shows data transfer rates.
+          </p>
+
+          <p>
+            Performance monitoring helps in identifying
+            system bottlenecks and understanding how
+            workloads affect system behaviour.
+          </p>
+
+        </div>
+
+        <!-- NETWORK -->
+        <div class="section">
+
+          <h2>Networking Tab</h2>
+
+          <p>
+            Networking refers to communication between
+            computer systems and other devices over a network.
+          </p>
+
+          <p>
+            The Networking tool in Task Manager provides
+            details about network adapters and their
+            current usage.
+          </p>
+
+          <p>
+            It shows real time data such as network speed,
+            utilization percentage and data sent or received.
+            This information helps users analyse network
+            performance and detect unusual network activity.
+          </p>
+
+        </div>
+
+        <!-- IMPORTANCE -->
+        <div class="section">
+
+          <h2>Importance</h2>
+
+          <p>
+            Windows Task Manager is an essential utility
+            for understanding operating system behaviour.
+            It provides transparency into how system resources
+            are allocated and used by applications and processes.
+          </p>
+
+        </div>
+
+        <!-- CONCLUSION -->
+        <div class="section">
+
+          <h2>Conclusion</h2>
+
+          <p>
+            Hence successfully understood the concept of
+            Task Manager tools like Applications,
+            Processes, Networking, Performance and
+            their importance in the Operating System.
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right">
+
+        <div class="image-box">
+
+          <img 
+            class="tape"
+            src="https://pngimg.com/d/sticky_tape_PNG25.png"
+          >
+
+          <img
+            src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop"
+            alt=""
+          >
+
+        </div>
+
+        <img
+          class="screenshot"
+          src="taskmanager.png"
+          alt=""
+        >
+
+        <div class="note">
+
+          ⚡ Observation: The Performance tab of Task Manager
+          displays CPU utilization, memory usage, disk activity,
+          Wi-Fi transfer rate and GPU performance in real time.
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
