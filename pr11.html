@@ -1,0 +1,525 @@
+<!-- pr11.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>PR11 - Descriptive Statistics</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- React -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+
+  <!-- React DOM -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Framer Motion -->
+  <script src="https://unpkg.com/framer-motion/dist/framer-motion.js"></script>
+
+  <!-- Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+
+    body{
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      background:#f8f1e7;
+      overflow-x:hidden;
+    }
+
+    .paper-bg{
+      background-image:
+      radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+
+      background-size:18px 18px;
+    }
+
+    .glass{
+      background:rgba(255,255,255,0.55);
+      backdrop-filter:blur(8px);
+    }
+
+    pre{
+      white-space:pre-wrap;
+      word-wrap:break-word;
+    }
+
+    ::-webkit-scrollbar{
+      width:10px;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:#d7c2a7;
+      border-radius:20px;
+    }
+
+    a{
+      text-decoration:none;
+    }
+
+  </style>
+</head>
+
+<body class="paper-bg">
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+const { motion } = Motion;
+
+function App(){
+
+  const [copied, setCopied] = React.useState(false);
+
+  const productionData = [
+    16.2,16.8,15.9,15.6,15.9,16.6,
+    15.8,16.0,16.0,15.7,15.9,15.6,
+    15.8,16.4,16.3,16.0,16.8,15.6,
+    15.8,15.2,16.0,16.2,15.4,16.9,
+    16.3,15.9,16.4,16.1,15.7,16.3
+  ];
+
+  // CORRECTED R CODE
+
+  const codeText = `
+production <- c(
+16.2,16.8,15.9,15.6,15.9,16.6,
+15.8,16.0,16.0,15.7,15.9,15.6,
+15.8,16.4,16.3,16.0,16.8,15.6,
+15.8,15.2,16.0,16.2,15.4,16.9,
+16.3,15.9,16.4,16.1,15.7,16.3
+)
+
+mean(production)
+
+median(production)
+
+var(production)
+
+sd(production)
+
+summary(production)
+
+range(production)
+`;
+
+  // COPY FUNCTION
+
+  const handleCopy = () => {
+
+    navigator.clipboard.writeText(codeText);
+
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  };
+
+  return(
+
+    <div className="min-h-screen px-6 md:px-16 py-10">
+
+      {/* TOP BAR */}
+
+      <motion.div
+
+        initial={{opacity:0,x:-20}}
+        animate={{opacity:1,x:0}}
+
+        className="flex items-center gap-3 text-[#6b5a49] mb-10"
+      >
+
+        <span className="text-2xl">←</span>
+
+        <a
+          href="sds.html"
+          className="hover:underline text-lg text-[#6b5a49]"
+        >
+          Back to SDS Labs
+        </a>
+
+      </motion.div>
+
+      {/* HEADER */}
+
+      <motion.div
+
+        initial={{opacity:0,y:30}}
+        animate={{opacity:1,y:0}}
+
+        className="glass border border-[#e7d7c2] rounded-[35px] p-8 md:p-12 shadow-lg"
+      >
+
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-10">
+
+          {/* LEFT */}
+
+          <div className="flex items-center gap-6">
+
+            <motion.div
+
+              animate={{
+                rotate:[0,3,-3,0]
+              }}
+
+              transition={{
+                repeat:Infinity,
+                duration:5
+              }}
+
+              className="w-28 h-28 rounded-full bg-[#4F8EDC] flex items-center justify-center text-white text-5xl shadow-xl"
+            >
+              📊
+            </motion.div>
+
+            <div>
+
+              <p className="text-[#9d8b76] text-lg">
+                LAB 1 • PRACTICAL 1
+              </p>
+
+              <h1
+                className="text-4xl md:text-5xl text-[#4e342e] mt-2"
+                style={{
+                  fontFamily:"cursive"
+                }}
+              >
+                Descriptive Statistics
+              </h1>
+
+              <p className="text-[#786857] mt-4 text-lg max-w-2xl">
+                Statistical analysis using MS Excel and R Programming.
+              </p>
+
+            </div>
+          </div>
+
+          {/* BADGE */}
+
+          <div className="bg-[#4F8EDC] text-white px-6 py-3 rounded-full shadow-md w-fit">
+            SDS • PR11
+          </div>
+
+        </div>
+      </motion.div>
+
+      {/* AIM */}
+
+      <motion.div
+
+        initial={{opacity:0,y:30}}
+        animate={{opacity:1,y:0}}
+        transition={{delay:0.1}}
+
+        className="mt-10 bg-[#fffaf2] border border-[#e6d6bf] rounded-[30px] p-8 shadow-sm"
+      >
+
+        <h2
+          className="text-3xl text-[#4e342e] mb-6"
+          style={{
+            fontFamily:"cursive"
+          }}
+        >
+          🎯 Aim
+        </h2>
+
+        <p className="text-[#5f5144] leading-8 text-lg">
+          To calculate descriptive statistical measures for the given
+          dataset using MS Excel and R Programming language.
+        </p>
+
+      </motion.div>
+
+      {/* DATASET */}
+
+      <motion.div
+
+        initial={{opacity:0,y:30}}
+        animate={{opacity:1,y:0}}
+        transition={{delay:0.2}}
+
+        className="mt-10 bg-[#fffaf2] border border-[#e6d6bf] rounded-[30px] p-8 shadow-sm"
+      >
+
+        <h2
+          className="text-3xl text-[#4e342e] mb-8"
+          style={{
+            fontFamily:"cursive"
+          }}
+        >
+          📦 Dataset
+        </h2>
+
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+
+          {productionData.map((item,index)=>(
+
+            <motion.div
+
+              whileHover={{
+                scale:1.05,
+                y:-4
+              }}
+
+              key={index}
+
+              className="bg-[#f5ede0] border border-[#eadac3] rounded-2xl py-4 text-center text-[#5c4d40] font-semibold shadow-sm"
+            >
+              {item}
+            </motion.div>
+          ))}
+
+        </div>
+
+      </motion.div>
+
+      {/* THEORY */}
+
+      <motion.div
+
+        initial={{opacity:0,y:30}}
+        animate={{opacity:1,y:0}}
+        transition={{delay:0.3}}
+
+        className="mt-10 bg-[#fffaf2] border border-[#e6d6bf] rounded-[30px] p-8 shadow-sm"
+      >
+
+        <h2
+          className="text-3xl text-[#4e342e] mb-6"
+          style={{
+            fontFamily:"cursive"
+          }}
+        >
+          📖 Related Theory
+        </h2>
+
+        <div className="space-y-5 text-[#5e5044] leading-8 text-lg">
+
+          <p>
+            Descriptive statistics is the branch of statistics that deals
+            with collecting, organizing and summarizing numerical data.
+            It helps researchers and analysts understand the important
+            features of a dataset.
+          </p>
+
+          <p>
+            In Data Science, descriptive statistics is widely used for
+            analyzing datasets before applying machine learning or
+            predictive models.
+          </p>
+
+          <p>
+            Descriptive statistics mainly includes:
+          </p>
+
+          <ul className="list-disc pl-8 space-y-3">
+
+            <li>
+              <strong>Mean:</strong> Average value of dataset.
+            </li>
+
+            <li>
+              <strong>Median:</strong> Middle value of ordered dataset.
+            </li>
+
+            <li>
+              <strong>Mode:</strong> Most repeated value.
+            </li>
+
+            <li>
+              <strong>Variance:</strong> Spread of data from mean.
+            </li>
+
+            <li>
+              <strong>Standard Deviation:</strong> Measure of dispersion.
+            </li>
+
+            <li>
+              <strong>Range:</strong> Difference between maximum and minimum values.
+            </li>
+
+          </ul>
+
+          <p>
+            R Programming language provides several built-in statistical
+            functions such as mean(), median(), var(), sd() and summary()
+            which make statistical calculations fast and efficient.
+          </p>
+
+          <p>
+            In this practical, production data from carpet looms is analyzed
+            using descriptive statistical techniques in order to study
+            consistency and variability of production.
+          </p>
+
+        </div>
+
+      </motion.div>
+
+      {/* CODE */}
+
+      <motion.div
+
+        initial={{opacity:0,y:30}}
+        animate={{opacity:1,y:0}}
+        transition={{delay:0.4}}
+
+        className="mt-10 bg-[#2b2b2b] rounded-[30px] p-8 shadow-xl overflow-hidden"
+      >
+
+        {/* TOP */}
+
+        <div className="flex items-center justify-between mb-8">
+
+          <h2
+            className="text-3xl text-white"
+            style={{
+              fontFamily:"cursive"
+            }}
+          >
+            💻 R Code
+          </h2>
+
+          {/* COPY BUTTON */}
+
+          <motion.button
+
+            whileTap={{
+              scale:0.88
+            }}
+
+            animate={{
+              scale: copied
+                ? [1,0.92,1.06,1]
+                : 1
+            }}
+
+            transition={{
+              duration:0.4
+            }}
+
+            onClick={handleCopy}
+
+            className={`px-5 py-3 rounded-xl shadow-lg font-medium text-white transition-all ${
+              copied
+                ? "bg-green-500"
+                : "bg-[#4F8EDC] hover:bg-[#3d7fd0]"
+            }`}
+          >
+            {copied ? "Copied" : "Copy Code"}
+          </motion.button>
+
+        </div>
+
+<pre className="text-green-400 text-[15px] leading-8 overflow-auto">
+{codeText}
+</pre>
+
+      </motion.div>
+
+      {/* ANALYSIS */}
+
+      <motion.div
+
+        initial={{opacity:0,y:30}}
+        animate={{opacity:1,y:0}}
+        transition={{delay:0.5}}
+
+        className="mt-10 bg-[#fffaf2] border border-[#e6d6bf] rounded-[30px] p-8 shadow-sm"
+      >
+
+        <h2
+          className="text-3xl text-[#4e342e] mb-6"
+          style={{
+            fontFamily:"cursive"
+          }}
+        >
+          📈 Analysis of Obtained Results
+        </h2>
+
+        <div className="space-y-5 text-[#5f5144] leading-8 text-lg">
+
+          <p>
+            The average production value is around 16 meters,
+            indicating stable production among carpet looms.
+          </p>
+
+          <p>
+            The standard deviation is relatively small which
+            indicates that the production values are close to
+            the mean and variation is low.
+          </p>
+
+          <p>
+            Minimum production value is 15.2 meters and maximum
+            production value is 16.9 meters.
+          </p>
+
+          <p>
+            The dataset appears balanced and consistent,
+            showing reliable production performance.
+          </p>
+
+          <p>
+            R Programming successfully calculated all descriptive
+            statistical measures and verified the dataset efficiently.
+          </p>
+
+        </div>
+
+      </motion.div>
+
+      {/* CONCLUSION */}
+
+      <motion.div
+
+        initial={{opacity:0,y:30}}
+        animate={{opacity:1,y:0}}
+        transition={{delay:0.6}}
+
+        className="mt-10 bg-[#fffaf2] border border-[#e6d6bf] rounded-[30px] p-8 shadow-sm mb-20"
+      >
+
+        <h2
+          className="text-3xl text-[#4e342e] mb-6"
+          style={{
+            fontFamily:"cursive"
+          }}
+        >
+          ✅ Conclusion
+        </h2>
+
+        <p className="text-[#5f5144] leading-8 text-lg">
+          The practical was successfully performed using
+          MS Excel and R Programming language. Various
+          descriptive statistical measures were calculated
+          and analyzed successfully.
+        </p>
+
+      </motion.div>
+
+    </div>
+  );
+}
+
+ReactDOM.createRoot(
+  document.getElementById("root")
+).render(<App />);
+
+</script>
+
+</body>
+</html>

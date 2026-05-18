@@ -1,0 +1,437 @@
+<!-- sds.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>SDS Practical List</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- React -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Framer Motion -->
+  <script src="https://unpkg.com/framer-motion/dist/framer-motion.js"></script>
+
+  <!-- Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #f8f1e7;
+      overflow-x: hidden;
+    }
+
+    .paper-bg {
+      background-image:
+        radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body class="paper-bg">
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+
+    const { motion } = Motion;
+
+    // =========================
+    // SDS DATA
+    // =========================
+
+    const sdsLabs = [
+
+      {
+        labId: 1,
+        labTitle: "Descriptive Statistics and Dataset Analysis",
+        color: "#4F8EDC",
+
+        practicals: [
+          {
+            id: 1,
+            title: "Descriptive Statistics using MS Excel",
+          },
+
+          {
+            id: 2,
+            title: "College Dataset Analysis using R",
+          },
+
+          {
+            id: 3,
+            title: "Auto Dataset Analysis",
+          },
+
+          {
+            id: 4,
+            title: "Statistical Analysis using Auto Dataset",
+          },
+
+          {
+            id: 5,
+            title: "Surya Bank Dataset Analysis",
+          },
+        ],
+      },
+
+      {
+        labId: 2,
+        labTitle: "Probability Distributions",
+        color: "#8E6BE8",
+
+        practicals: [
+          {
+            id: 1,
+            title: "Binomial Distribution using R",
+          },
+
+          {
+            id: 2,
+            title: "Poisson Distribution using R",
+          },
+
+          {
+            id: 3,
+            title: "Normal Distribution using R",
+          },
+
+          {
+            id: 4,
+            title: "Distribution Functions in R",
+          },
+
+          {
+            id: 5,
+            title: "Distribution Simulation using R",
+          },
+        ],
+      },
+
+      {
+        labId: 3,
+        labTitle: "Sampling and Hypothesis Testing",
+        color: "#59B37A",
+
+        practicals: [
+          {
+            id: 1,
+            title: "Sampling Distribution in R",
+          },
+
+          {
+            id: 2,
+            title: "Sampling Distribution Problems",
+          },
+
+          {
+            id: 3,
+            title: "Exercises on Sampling Distribution",
+          },
+
+          {
+            id: 4,
+            title: "Hypothesis Testing using R",
+          },
+
+          {
+            id: 5,
+            title: "One Way ANOVA using R",
+          },
+        ],
+      },
+
+      {
+        labId: 4,
+        labTitle: "Regression Analysis",
+        color: "#E89C52",
+
+        practicals: [
+          {
+            id: 1,
+            title: "Simple Linear Regression using R",
+          },
+
+          {
+            id: 2,
+            title: "Multiple Linear Regression using R",
+          },
+
+          {
+            id: 3,
+            title: "Carseats Dataset Regression Analysis",
+          },
+
+          {
+            id: 4,
+            title: "Regression Diagnostics and Model Evaluation",
+          },
+
+          {
+            id: 5,
+            title: "Advanced Regression Analysis",
+          },
+        ],
+      },
+    ];
+
+    // =========================
+    // APP
+    // =========================
+
+    function App() {
+
+      const [openLab, setOpenLab] = React.useState(1);
+
+      return (
+
+        <div className="min-h-screen px-6 md:px-14 py-10">
+
+          {/* BACK BUTTON */}
+
+          <div className="flex items-center gap-3 text-[#6f5e4d] mb-8">
+
+            <span className="text-xl">
+              ←
+            </span>
+
+            <span className="cursor-pointer hover:underline">
+              Back to Subjects
+            </span>
+          </div>
+
+          {/* TITLE */}
+
+          <div className="flex items-center gap-5 mb-14">
+
+            {/* ICON */}
+
+            <motion.div
+
+              animate={{
+                y: [0, -6, 0],
+              }}
+
+              transition={{
+                repeat: Infinity,
+                duration: 4,
+              }}
+
+              className="w-24 h-24 rounded-full bg-[#8E6BE8] flex items-center justify-center text-white text-5xl shadow-lg"
+            >
+              📊
+            </motion.div>
+
+            {/* TEXT */}
+
+            <div>
+
+              <h1
+                className="text-4xl md:text-5xl text-[#4e342e]"
+                style={{
+                  fontFamily: "cursive",
+                }}
+              >
+                Statistics for Data Science
+              </h1>
+
+              <p className="text-[#7b6a58] mt-3 text-lg">
+                List of all SDS practical labs
+              </p>
+            </div>
+          </div>
+
+          {/* LABS */}
+
+          <div className="space-y-8 max-w-6xl mx-auto">
+
+            {sdsLabs.map((lab, index) => {
+
+              const isOpen = openLab === lab.labId;
+
+              return (
+
+                <motion.div
+                  key={lab.labId}
+
+                  initial={{
+                    opacity: 0,
+                    y: 30,
+                  }}
+
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+
+                  transition={{
+                    delay: index * 0.1,
+                  }}
+
+                  className="bg-[#fffaf2] border border-[#e3d4bd] rounded-[30px] overflow-hidden shadow-sm"
+                >
+
+                  {/* LAB HEADER */}
+
+                  <div
+                    onClick={() =>
+                      setOpenLab(
+                        isOpen ? null : lab.labId
+                      )
+                    }
+
+                    className="flex items-center justify-between p-8 cursor-pointer hover:bg-[#fcf3e8] transition-all"
+                  >
+
+                    <div className="flex items-center gap-6">
+
+                      {/* ICON */}
+
+                      <div
+                        className="w-20 h-20 rounded-full flex items-center justify-center text-white text-3xl shadow-lg"
+                        style={{
+                          background: lab.color,
+                        }}
+                      >
+                        📚
+                      </div>
+
+                      {/* TEXT */}
+
+                      <div>
+
+                        <h2
+                          className="text-3xl text-[#4e342e]"
+                          style={{
+                            fontFamily: "cursive",
+                          }}
+                        >
+                          LAB {lab.labId}
+                        </h2>
+
+                        <p className="text-[#7b6a58] mt-1 text-lg">
+                          {lab.labTitle}
+                        </p>
+
+                        <p className="text-sm text-[#aa9784] mt-2">
+                          {lab.practicals.length} Practicals
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* ARROW */}
+
+                    <motion.div
+                      animate={{
+                        rotate: isOpen ? 90 : 0,
+                      }}
+
+                      className="text-3xl text-[#8d7b68]"
+                    >
+                      ›
+                    </motion.div>
+                  </div>
+
+                  {/* PRACTICAL LIST */}
+
+                  {isOpen && (
+
+                    <motion.div
+
+                      initial={{
+                        opacity: 0,
+                        height: 0,
+                      }}
+
+                      animate={{
+                        opacity: 1,
+                        height: "auto",
+                      }}
+
+                      className="border-t border-[#eadcc8]"
+                    >
+
+                      {lab.practicals.map((practical, i) => (
+
+                        <a
+                          href={`pr${lab.labId}${practical.id}.html`}
+                          key={practical.id}
+
+                          className={`flex items-center justify-between px-8 py-6 border-b border-[#f0e3d1] hover:bg-[#fdf5ea] transition-all ${
+                            i === lab.practicals.length - 1
+                              ? "border-none"
+                              : ""
+                          }`}
+                        >
+
+                          {/* LEFT */}
+
+                          <div className="flex items-center gap-5">
+
+                            {/* NUMBER */}
+
+                            <div
+                              className="w-12 h-12 rounded-full text-white flex items-center justify-center font-bold shadow-md"
+                              style={{
+                                background: lab.color,
+                              }}
+                            >
+                              {String(practical.id).padStart(2, "0")}
+                            </div>
+
+                            {/* TITLE */}
+
+                            <h3 className="text-[#4e342e] text-lg font-medium">
+                              {practical.title}
+                            </h3>
+                          </div>
+
+                          {/* RIGHT */}
+
+                          <div className="text-[#8b7a67] text-2xl">
+                            →
+                          </div>
+
+                        </a>
+                      ))}
+                    </motion.div>
+                  )}
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    // =========================
+    // RENDER
+    // =========================
+
+    ReactDOM.createRoot(
+      document.getElementById("root")
+    ).render(<App />);
+
+  </script>
+
+</body>
+</html>

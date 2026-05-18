@@ -1,0 +1,638 @@
+<!-- pr12.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>PR12 - College Dataset Analysis</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- React -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+
+  <!-- React DOM -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Framer Motion -->
+  <script src="https://unpkg.com/framer-motion/dist/framer-motion.js"></script>
+
+  <!-- Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+
+    body{
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      background:#f8f1e7;
+      overflow-x:hidden;
+    }
+
+    .paper-bg{
+      background-image:
+      radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+
+      background-size:18px 18px;
+    }
+
+    .glass{
+      background:rgba(255,255,255,0.55);
+      backdrop-filter:blur(8px);
+    }
+
+    pre{
+      white-space:pre-wrap;
+      word-wrap:break-word;
+    }
+
+    ::-webkit-scrollbar{
+      width:10px;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:#d7c2a7;
+      border-radius:20px;
+    }
+
+    a{
+      text-decoration:none;
+    }
+
+  </style>
+</head>
+
+<body class="paper-bg">
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+const { motion } = Motion;
+
+function App(){
+
+  const [copied, setCopied] = React.useState(false);
+
+  const variables = [
+    "Private",
+    "Apps",
+    "Accept",
+    "Enroll",
+    "Top10perc",
+    "Top25perc",
+    "F.Undergrad",
+    "P.Undergrad",
+    "Outstate",
+    "Room.Board",
+    "Books",
+    "Personal",
+    "PhD",
+    "Terminal",
+    "S.F.Ratio",
+    "perc.alumni",
+    "Expend",
+    "Grad.Rate"
+  ];
+
+  const codeText = `college <- read.csv("College.csv")
+
+fix(college)
+
+rownames(college) <- college[,1]
+
+college <- college[,-1]
+
+fix(college)
+
+summary(college)
+
+pairs(college[,1:10])
+
+boxplot(
+Outstate ~ Private,
+data = college,
+main = "Outstate Tuition vs Private",
+xlab = "Private/Public",
+ylab = "Outstate Tuition",
+col = c("lightblue","lightgreen")
+)
+
+Elite <- rep("No", nrow(college))
+
+Elite[college$Top10perc > 50] <- "Yes"
+
+Elite <- as.factor(Elite)
+
+college <- data.frame(college, Elite)
+
+summary(college$Elite)
+
+boxplot(
+Outstate ~ Elite,
+data = college,
+main = "Outstate Tuition vs Elite",
+xlab = "Elite Status",
+ylab = "Outstate Tuition",
+col = c("orange","green")
+)
+
+par(mfrow = c(2,2))
+
+hist(
+college$PhD,
+breaks = 10,
+col = 3,
+main = "PhD Distribution",
+xlab = "PhD %"
+)
+
+hist(
+college$F.Undergrad,
+breaks = 10,
+main = "Full-time Undergraduates",
+xlab = "Count"
+)
+
+hist(
+college$P.Undergrad,
+breaks = 15,
+col = 2,
+main = "Part-time Undergraduates",
+xlab = "Count"
+)
+
+hist(
+college$Outstate,
+breaks = 15,
+col = 4,
+main = "Outstate Tuition",
+xlab = "Cost"
+)
+`;
+
+  const handleCopy = () => {
+
+    navigator.clipboard.writeText(codeText);
+
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  };
+
+  return(
+
+    <div className="min-h-screen px-6 md:px-16 py-10">
+
+      {/* TOP */}
+
+      <motion.div
+
+        initial={{opacity:0,x:-20}}
+        animate={{opacity:1,x:0}}
+
+        className="flex items-center gap-3 text-[#6b5a49] mb-10"
+      >
+
+        <span className="text-2xl">←</span>
+
+        <a
+          href="sds.html"
+          className="hover:underline text-lg text-[#6b5a49]"
+        >
+          Back to SDS Labs
+        </a>
+
+      </motion.div>
+
+      {/* HEADER */}
+
+      <motion.div
+
+        initial={{opacity:0,y:30}}
+        animate={{opacity:1,y:0}}
+
+        className="glass border border-[#e7d7c2] rounded-[35px] p-8 md:p-12 shadow-lg"
+      >
+
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-10">
+
+          <div className="flex items-center gap-6">
+
+            <motion.div
+
+              animate={{
+                rotate:[0,3,-3,0]
+              }}
+
+              transition={{
+                repeat:Infinity,
+                duration:5
+              }}
+
+              className="w-28 h-28 rounded-full bg-[#8E6BE8] flex items-center justify-center text-white text-5xl shadow-xl"
+            >
+              📚
+            </motion.div>
+
+            <div>
+
+              <p className="text-[#9d8b76] text-lg">
+                LAB 1 • PRACTICAL 2
+              </p>
+
+              <h1
+                className="text-4xl md:text-5xl text-[#4e342e] mt-2"
+                style={{
+                  fontFamily:"cursive"
+                }}
+              >
+                College Dataset Analysis
+              </h1>
+
+              <p className="text-[#786857] mt-4 text-lg max-w-2xl">
+                Exploratory Data Analysis using R Programming.
+              </p>
+
+            </div>
+          </div>
+
+          <div className="bg-[#8E6BE8] text-white px-6 py-3 rounded-full shadow-md w-fit">
+            SDS • PR12
+          </div>
+
+        </div>
+
+      </motion.div>
+
+      <motion.div
+
+        initial={{opacity:0,y:30}}
+        animate={{opacity:1,y:0}}
+        transition={{delay:0.05}}
+
+        className="mt-10 bg-[#fffaf2] border border-[#e6d6bf] rounded-[30px] p-8 shadow-sm"
+      >
+
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+
+          <div>
+
+            <h2
+              className="text-3xl text-[#4e342e] mb-3"
+              style={{
+                fontFamily:"cursive"
+              }}
+            >
+              📁 Dataset File
+            </h2>
+
+            <p className="text-[#5f5144] text-lg leading-8">
+              Download the College dataset CSV file used in this practical.
+            </p>
+
+          </div>
+
+          <a
+            href="College.csv"
+            download
+
+            className="bg-[#8E6BE8] hover:bg-[#7d5ae2] transition-all text-white px-6 py-4 rounded-2xl shadow-lg text-center font-medium"
+          >
+            Download College.csv
+          </a>
+
+        </div>
+
+      </motion.div>
+
+      {/* AIM */}
+
+      <motion.div
+
+        initial={{opacity:0,y:30}}
+        animate={{opacity:1,y:0}}
+        transition={{delay:0.1}}
+
+        className="mt-10 bg-[#fffaf2] border border-[#e6d6bf] rounded-[30px] p-8 shadow-sm"
+      >
+
+        <h2
+          className="text-3xl text-[#4e342e] mb-6"
+          style={{
+            fontFamily:"cursive"
+          }}
+        >
+          🎯 Aim
+        </h2>
+
+        <p className="text-[#5f5144] leading-8 text-lg">
+          To learn and use read.csv(), fix(), rownames(),
+          summary(), pairs() and plot() functions in R for
+          performing exploratory data analysis on College dataset.
+        </p>
+
+      </motion.div>
+
+      {/* VARIABLES */}
+
+      <motion.div
+
+        initial={{opacity:0,y:30}}
+        animate={{opacity:1,y:0}}
+        transition={{delay:0.2}}
+
+        className="mt-10 bg-[#fffaf2] border border-[#e6d6bf] rounded-[30px] p-8 shadow-sm"
+      >
+
+        <h2
+          className="text-3xl text-[#4e342e] mb-8"
+          style={{
+            fontFamily:"cursive"
+          }}
+        >
+          📦 Dataset Variables
+        </h2>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+
+          {variables.map((item,index)=>(
+
+            <motion.div
+
+              whileHover={{
+                scale:1.04,
+                y:-4
+              }}
+
+              key={index}
+
+              className="bg-[#f5ede0] border border-[#eadac3] rounded-2xl py-4 px-4 text-center text-[#5c4d40] font-semibold shadow-sm"
+            >
+              {item}
+            </motion.div>
+          ))}
+
+        </div>
+
+      </motion.div>
+
+      {/* THEORY */}
+
+      <motion.div
+
+        initial={{opacity:0,y:30}}
+        animate={{opacity:1,y:0}}
+        transition={{delay:0.3}}
+
+        className="mt-10 bg-[#fffaf2] border border-[#e6d6bf] rounded-[30px] p-8 shadow-sm"
+      >
+
+        <h2
+          className="text-3xl text-[#4e342e] mb-6"
+          style={{
+            fontFamily:"cursive"
+          }}
+        >
+          📖 Related Theory
+        </h2>
+
+        <div className="space-y-5 text-[#5e5044] leading-8 text-lg">
+
+          <p>
+            This practical is based on Exploratory Data Analysis (EDA)
+            using R Programming language. EDA is the process of analyzing
+            datasets to summarize their important characteristics using
+            statistical and graphical methods.
+          </p>
+
+          <p>
+            The College dataset is a multivariate dataset that contains
+            information about 777 universities and colleges in the United States.
+            The dataset includes multiple variables related to admissions,
+            tuition fees, student enrollment, faculty qualifications,
+            expenditure and graduation rates.
+          </p>
+
+          <p>
+            The variables in the dataset can be classified into:
+          </p>
+
+          <ul className="list-disc pl-8 space-y-3">
+
+            <li>
+              <strong>Categorical Variables:</strong>
+              Variables representing categories such as Private (Yes/No).
+            </li>
+
+            <li>
+              <strong>Quantitative Variables:</strong>
+              Numerical variables such as Apps, Enroll, Outstate,
+              Expend and Grad.Rate.
+            </li>
+
+          </ul>
+
+          <p>
+            In R, the dataset is stored in the form of a data frame,
+            which is one of the most important data structures used
+            for organizing data into rows and columns.
+          </p>
+
+          <p>
+            The practical also introduces the concept of
+            <strong> data preprocessing </strong>
+            which includes:
+          </p>
+
+          <ul className="list-disc pl-8 space-y-3">
+
+            <li>Assigning meaningful row names</li>
+
+            <li>Removing unnecessary columns</li>
+
+            <li>Cleaning and organizing data</li>
+
+          </ul>
+
+          <p>
+            Various statistical and visualization techniques are used
+            in this practical:
+          </p>
+
+          <ul className="list-disc pl-8 space-y-3">
+
+            <li>
+              <strong>summary()</strong> function is used to generate
+              descriptive statistics such as minimum, maximum,
+              mean, median and quartiles.
+            </li>
+
+            <li>
+              <strong>pairs()</strong> function generates a scatterplot
+              matrix to study relationships among variables.
+            </li>
+
+            <li>
+              <strong>Boxplots</strong> are used to compare distributions
+              and identify outliers.
+            </li>
+
+            <li>
+              <strong>Histograms</strong> help understand frequency
+              distribution and skewness of variables.
+            </li>
+
+          </ul>
+
+          <p>
+            The practical also introduces the concept of creating
+            qualitative variables using binning techniques.
+            A new variable named <strong>Elite</strong> is created
+            based on whether the percentage of students coming from
+            the top 10% of schools exceeds 50%.
+          </p>
+
+          <p>
+            Overall, this practical demonstrates the fundamental
+            concepts of:
+          </p>
+
+          <ul className="list-disc pl-8 space-y-3">
+
+            <li>Exploratory Data Analysis</li>
+
+            <li>Data Cleaning and Preprocessing</li>
+
+            <li>Descriptive Statistical Analysis</li>
+
+            <li>Graphical Visualization</li>
+
+            <li>Data Interpretation</li>
+
+          </ul>
+
+          <p>
+            These concepts form the foundation for advanced
+            statistical analysis, machine learning and
+            data science applications.
+          </p>
+
+        </div>
+
+      </motion.div>
+
+      {/* CODE */}
+
+      <motion.div
+
+        initial={{opacity:0,y:30}}
+        animate={{opacity:1,y:0}}
+        transition={{delay:0.4}}
+
+        className="mt-10 bg-[#2b2b2b] rounded-[30px] p-8 shadow-xl overflow-hidden"
+      >
+
+        <div className="flex items-center justify-between mb-8">
+
+          <h2
+            className="text-3xl text-white"
+            style={{
+              fontFamily:"cursive"
+            }}
+          >
+            💻 R Code
+          </h2>
+
+          <motion.button
+
+            whileTap={{
+              scale:0.88
+            }}
+
+            animate={{
+              scale: copied
+                ? [1,0.92,1.06,1]
+                : 1
+            }}
+
+            transition={{
+              duration:0.4
+            }}
+
+            onClick={handleCopy}
+
+            className={`px-5 py-3 rounded-xl shadow-lg font-medium text-white transition-all ${
+              copied
+                ? "bg-green-500"
+                : "bg-[#8E6BE8] hover:bg-[#7d5ae2]"
+            }`}
+          >
+            {copied ? "Copied" : "Copy Code"}
+          </motion.button>
+
+        </div>
+
+<pre className="text-green-400 text-[15px] leading-8 overflow-auto">
+{codeText}
+</pre>
+
+      </motion.div>
+
+      {/* CONCLUSION */}
+
+      <motion.div
+
+        initial={{opacity:0,y:30}}
+        animate={{opacity:1,y:0}}
+        transition={{delay:0.6}}
+
+        className="mt-10 bg-[#fffaf2] border border-[#e6d6bf] rounded-[30px] p-8 shadow-sm mb-20"
+      >
+
+        <h2
+          className="text-3xl text-[#4e342e] mb-6"
+          style={{
+            fontFamily:"cursive"
+          }}
+        >
+          ✅ Conclusion
+        </h2>
+
+        <p className="text-[#5f5144] leading-8 text-lg">
+          The College dataset was successfully analyzed using
+          R Programming. Various statistical and graphical
+          analysis techniques such as summary statistics,
+          scatterplots, boxplots and histograms were performed
+          successfully for understanding the dataset.
+        </p>
+
+      </motion.div>
+
+    </div>
+  );
+}
+
+ReactDOM.createRoot(
+  document.getElementById("root")
+).render(<App />);
+
+</script>
+
+</body>
+</html>

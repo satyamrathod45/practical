@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>No Cheating Brother</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family: 'Poppins', sans-serif;
+      background:#efe3cf;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      padding:20px;
+    }
+
+    .container{
+      width:1400px;
+      min-height:850px;
+      background:#f5ead8;
+      border-radius:30px;
+      padding:35px 45px;
+      position:relative;
+      overflow:hidden;
+      box-shadow:
+      0 10px 40px rgba(0,0,0,0.12),
+      inset 0 0 60px rgba(255,255,255,0.4);
+    }
+
+    /* paper texture */
+    .container::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+      radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+      background-size:4px 4px;
+      opacity:0.4;
+      pointer-events:none;
+    }
+
+    .top-bar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:25px;
+      position:relative;
+      z-index:2;
+    }
+
+    .back{
+      display:flex;
+      align-items:center;
+      gap:15px;
+      font-size:22px;
+      color:#1c1c1c;
+      font-weight:500;
+    }
+
+    .back span{
+      font-size:40px;
+      cursor:pointer;
+    }
+
+    .share-btn{
+      width:80px;
+      height:80px;
+      border-radius:18px;
+      border:2px solid #d3bea2;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:#f7eddc;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .share-btn:hover{
+      transform:scale(1.05);
+      background:#f1e2cb;
+    }
+
+    .share-btn img{
+      width:34px;
+    }
+
+    .line{
+      width:100%;
+      height:2px;
+      background:#d6c3a8;
+      margin-bottom:40px;
+    }
+
+    .content{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:20px;
+      position:relative;
+      z-index:2;
+    }
+
+    /* LEFT */
+    .left{
+      width:48%;
+      padding-top:10px;
+    }
+
+    .badge{
+      display:inline-block;
+      background:#3f7fcd;
+      color:white;
+      padding:14px 28px;
+      border-radius:50px;
+      font-size:20px;
+      margin-bottom:35px;
+      box-shadow:0 6px 15px rgba(63,127,205,0.25);
+    }
+
+    h1{
+      font-family:'Patrick Hand', cursive;
+      font-size:72px;
+      line-height:1.1;
+      color:#2b1f17;
+      margin-bottom:35px;
+    }
+
+    .divider{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-bottom:45px;
+    }
+
+    .divider .line1{
+      flex:1;
+      height:3px;
+      background:#c49a57;
+      position:relative;
+    }
+
+    .divider .line1::before,
+    .divider .line1::after{
+      content:"";
+      width:8px;
+      height:8px;
+      border:2px solid #c49a57;
+      border-radius:50%;
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+    }
+
+    .divider .line1::before{
+      left:0;
+    }
+
+    .divider .line1::after{
+      right:0;
+    }
+
+    .planet{
+      font-size:32px;
+    }
+
+    .quote{
+      font-family:'Patrick Hand', cursive;
+      font-size:33px;
+      line-height:1.6;
+      color:#2e2218;
+      margin-bottom:40px;
+    }
+
+    .points{
+      list-style:none;
+    }
+
+    .points li{
+      font-family:'Patrick Hand', cursive;
+      font-size:38px;
+      margin:18px 0;
+      color:#24180f;
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+
+    .anchor{
+      color:#c08a36;
+      font-size:40px;
+    }
+
+    /* RIGHT SIDE */
+    .right{
+      width:45%;
+      position:relative;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .photo-frame{
+      width:520px;
+      background:#f2e4cc;
+      padding:18px;
+      border-radius:8px;
+      transform:rotate(4deg);
+      position:relative;
+      box-shadow:0 12px 25px rgba(0,0,0,0.2);
+    }
+
+    .photo-frame img{
+      width:100%;
+      height:680px;
+      object-fit:cover;
+      border-radius:4px;
+    }
+
+    .tape{
+      width:110px;
+      height:34px;
+      background:rgba(224,202,160,0.75);
+      position:absolute;
+      top:-10px;
+      left:-18px;
+      transform:rotate(-25deg);
+      border-radius:4px;
+      backdrop-filter:blur(2px);
+    }
+
+    .bubble{
+      position:absolute;
+      top:10px;
+      right:-40px;
+      width:320px;
+      background:white;
+      border:5px solid #222;
+      border-radius:50%;
+      padding:40px 30px;
+      font-family:'Patrick Hand', cursive;
+      font-size:42px;
+      text-align:center;
+      color:#23180f;
+      line-height:1.2;
+      box-shadow:8px 10px 0 rgba(0,0,0,0.1);
+    }
+
+    .bubble::after{
+      content:"";
+      position:absolute;
+      bottom:-35px;
+      left:70px;
+      border-width:35px 35px 0;
+      border-style:solid;
+      border-color:white transparent transparent;
+      transform:rotate(20deg);
+    }
+
+    .bubble::before{
+      content:"";
+      position:absolute;
+      bottom:-43px;
+      left:66px;
+      border-width:39px 39px 0;
+      border-style:solid;
+      border-color:#222 transparent transparent;
+      transform:rotate(20deg);
+      z-index:-1;
+    }
+
+    .bottle{
+      position:absolute;
+      bottom:-20px;
+      right:10px;
+      font-size:120px;
+      transform:rotate(-12deg);
+      opacity:0.9;
+    }
+
+    @media(max-width:1200px){
+
+      .content{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .left,.right{
+        width:100%;
+      }
+
+      h1{
+        font-size:58px;
+      }
+
+      .photo-frame{
+        width:100%;
+        max-width:500px;
+      }
+
+      .bubble{
+        width:250px;
+        font-size:34px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="top-bar">
+      <div class="back">
+        <span>←</span>
+        <p>Back to Chemistry List</p>
+      </div>
+
+      <div class="share-btn">
+        <img src="https://cdn-icons-png.flaticon.com/512/929/929610.png">
+      </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="content">
+
+      <!-- LEFT -->
+      <div class="left">
+
+        <div class="badge">Study Reminder</div>
+
+        <h1>
+          No Cheating Brother,<br>
+          Work Hard!
+        </h1>
+
+        <div class="divider">
+          <div class="line1"></div>
+          <div class="planet">🪐</div>
+          <div class="line1"></div>
+        </div>
+
+        <div class="quote">
+          Success is earned, not copied.<br>
+          Trust your effort, trust the process,<br>
+          and make yourself proud.
+        </div>
+
+        <ul class="points">
+          <li><span class="anchor">⚓</span> Understand the concept</li>
+          <li><span class="anchor">⚓</span> Practice consistently</li>
+          <li><span class="anchor">⚓</span> Solve on your own</li>
+          <li><span class="anchor">⚓</span> Ask when in doubt</li>
+          <li><span class="anchor">⚓</span> Be your best version</li>
+        </ul>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right">
+
+        <div class="bubble">
+          Kaizokuni<br>
+          orewa naru!
+        </div>
+
+        <div class="photo-frame">
+          <div class="tape"></div>
+
+          <!-- LUFFY IMAGE -->
+          <img src="luffy2.png">
+
+        </div>
+
+        <div class="bottle">🍾</div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    // Share button animation
+    const shareBtn = document.querySelector(".share-btn");
+
+    shareBtn.addEventListener("click", () => {
+
+      shareBtn.style.transform = "scale(0.92)";
+
+      setTimeout(() => {
+        shareBtn.style.transform = "scale(1)";
+        alert("Share feature coming soon 🏴‍☠️");
+      }, 150);
+
+    });
+
+  </script>
+
+</body>
+</html>
